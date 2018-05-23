@@ -1,0 +1,24 @@
+#include <LiquidCrystal.h>
+const int trig = 3;
+const int echo = 2;
+int time = 0;
+LiquidCrystal lcd(12, 11, 17, 16, 15, 14);
+void setup() {
+  Serial.begin(9600);
+  pinMode (trig, OUTPUT);
+  pinMode (echo, INPUT);
+  lcd.begin(16, 2); // set up the LCD's number of columns and rows:
+}
+
+void loop() {
+  lcd.setCursor(0, 1);
+  float duration, distance;
+  digitalWrite(trig, HIGH);
+  delayMicroseconds(1000);
+  digitalWrite(trig, LOW);
+  duration = pulseIn (echo, HIGH);
+  distance = (duration/2)/29;
+  lcd.print(" cm = ");
+  lcd.print(distance);
+  delay(1000);
+}
